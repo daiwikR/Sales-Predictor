@@ -269,7 +269,7 @@ Logged per run:
 
 ---
 
-## Resume / Portfolio Summary
+## Summary
 
 > **Live MLOps Sales Platform**: `https://superstore-forecast.streamlit.app`
 > **GitHub**: `https://github.com/your-org/superstore-mlops-forecast`
@@ -281,13 +281,3 @@ Logged per run:
 
 ---
 
-## Troubleshooting
-
-| Error | Resolution |
-|-------|------------|
-| `FileNotFoundError: SampleSuperstore.csv` | Download from Kaggle and place in `data/` |
-| `FileNotFoundError: processed.parquet` | Run `make prepare` |
-| `FileNotFoundError: xgb_model.pkl` | Run `make train` |
-| Dashboard shows empty forecast section | Run `make train` to generate `forecast.parquet` |
-| Prophet import error | Run `pip install prophet` (requires `pystan`) |
-| MLflow DB locked | Stop other MLflow instances; `rm mlruns.db` and retrain |
