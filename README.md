@@ -153,65 +153,6 @@ make docker-down
 
 ---
 
-## Streamlit Cloud Deployment
-
-1. Push the repository to GitHub.
-2. Visit [share.streamlit.io](https://share.streamlit.io) and connect the repository.
-3. Set **Main file path** to `dashboard/app.py`.
-4. Add the following **Secrets** (Settings → Secrets):
-   ```toml
-   # No secrets required for read-only dashboard
-   ```
-5. Click **Deploy**.
-
-Live example URL pattern:
-```
-https://superstore-forecast.streamlit.app
-```
-
-> **Note**: For Streamlit Cloud, pre-generate `data/clean.parquet`,
-> `data/processed.parquet`, `data/forecast.parquet`, and `models/*.pkl` locally,
-> then commit them (or use DVC / S3) so the deployed app can load them.
-
----
-
-## API Reference
-
-All endpoints are documented at `http://localhost:8000/docs` (Swagger UI).
-
-### `GET /health`
-```json
-{
-  "status": "ok",
-  "model_loaded": true,
-  "validation_mape": 9.47,
-  "data_end_date": "2017-12-30"
-}
-```
-
-### `GET /metrics`
-Returns all tracked model performance metrics (MAPE, RMSE, CV folds, alpha, dates).
-
-### `POST /forecast`
-```json
-// Request
-{ "days": 30 }
-
-// Response
-{
-  "horizon_days": 30,
-  "validation_mape": 9.47,
-  "predictions": [
-    { "date": "2018-01-01", "forecast_sales": 3241.56, "lower_bound": 2753.32, "upper_bound": 3754.80 },
-    ...
-  ]
-}
-```
-
-### `GET /forecast?days=30`
-Browser-friendly GET version of the forecast endpoint.
-
----
 
 ## Model Performance
 
@@ -251,27 +192,10 @@ Logged per run:
 
 ---
 
-## Makefile Reference
-
-| Target | Description |
-|--------|-------------|
-| `make install` | Install all dependencies |
-| `make prepare` | ETL pipeline |
-| `make train` | Full training (50 Optuna trials) |
-| `make quick-train` | Rapid training (10 Optuna trials) |
-| `make dashboard` | Streamlit dashboard on :8501 |
-| `make serve` | FastAPI server on :8000 |
-| `make mlflow-ui` | MLflow UI on :5000 |
-| `make docker-up` | Start all Docker services |
-| `make docker-down` | Stop all Docker services |
-| `make clean` | Remove generated artefacts |
-| `make lint` | Python syntax check |
-
----
 
 ## Summary
 
-> **Live MLOps Sales Platform**: `https://superstore-forecast.streamlit.app`
+> **Live MLOps Sales Platform**: `https://sales-predictor-7vfxujqpva6pe3zvwvffnm.streamlit.app`
 > **GitHub**: `https://github.com/your-org/superstore-mlops-forecast`
 > Achieved **~9.5% MAPE** on 30-day Superstore sales forecasting using an
 > XGBoost + Prophet ensemble with Optuna tuning, MLflow experiment tracking,
